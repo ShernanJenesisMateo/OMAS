@@ -1,3 +1,5 @@
-public class user {
+package OMAS.OfficeTableReservationSystem.model;
+
+public class User {
     
 }
