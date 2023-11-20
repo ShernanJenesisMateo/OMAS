@@ -9,11 +9,12 @@
         <select id="findByUsername" resultType="OMAS.OfficeTableReservationSystem.model.User">
             SELECT emp_id,
                 username,
-                password
+                password,
+                role
             FROM tbl_user
-            WHERE username COLLATE utf8mb4_bin = #{username}
+            WHERE username = #{username}
 
-                <!-- SELECT user_id,
+                                                                <!-- SELECT user_id,
                 first_name,
                 last_name,
                 username,
@@ -23,5 +24,66 @@
                 WHERE username = #{username} -->
         </select>
 
-        
+        <select id="getAllRolesOfUser" resultType="OMAS.OfficeTableReservationSystem.model.Role">
+            SELECT title
+            FROM tbl_role_mst;
+
+                                                                <!-- SELECT user_id,
+                first_name,
+                last_name,
+                username,
+                password,
+                role
+                FROM tbl_user_mst
+                WHERE username = #{username} -->
+        </select>
+
+        <!-- Add Data -->
+        <insert id="addPersonalInfo" parameterType="OMAS.OfficeTableReservationSystem.model.PersonalInfoInput">
+                INSERT INTO tbl_personal_info(
+                emp_id, 
+                fname, 
+                lname, 
+                mname, 
+                email, 
+                reg_id
+                )
+                VALUES (
+                #{emp_id}, 
+                #{fname}, 
+                #{lname}, 
+                #{mname}, 
+                #{email}, 
+                1
+                );
+        </insert>
+
+        <insert id="insertUser" parameterType="OMAS.OfficeTableReservationSystem.model.UserInput">
+        INSERT INTO tbl_user (
+            emp_id, 
+            username, 
+            password, 
+            position_id, 
+            dept_id, 
+            section_id, 
+                                                            <!-- role_id, -->
+            status_code, 
+            img_src, 
+            reg_id
+        )
+        VALUES (
+            #{emp_id}, 
+            #{username}, 
+            #{password}, 
+            #{position_id}, 
+            #{dept_id}, 
+            #{section_id},
+                                                            <!-- #{role_id},  -->
+            #{status_code}, 
+            #{img_src}, 
+            1
+        );
+        </insert>
+
+
 </mapper>
