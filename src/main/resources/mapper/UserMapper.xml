@@ -3,19 +3,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!-- Mapper for tbl project   -->
-<mapper namespace="OMAS.OfficeTableReservationSystem.daoUserDao">
+<mapper namespace="OMAS.OfficeTableReservationSystem.dao.UserDao">
 
         <!-- Login -->
-        <select id="findByUsername" resultType="com.v315.security.model.User">
+        <select id="findByUsername" resultType="OMAS.OfficeTableReservationSystem.model.User">
             SELECT emp_id,
                 username,
-                password,
-                position_id,
-                dept_id,
-                section_id,
-                role_id,
-                status_code,
-                img_src
+                password
             FROM tbl_user
             WHERE username COLLATE utf8mb4_bin = #{username}
 
