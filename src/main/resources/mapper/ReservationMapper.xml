@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- Mapper for tbl project   -->
+<mapper namespace="OMAS.OfficeTableReservationSystem.dao.ReservationDao">
+
+    <!-- Saving of reservation -->
+    <select id="save" resultType="OMAS.OfficeTableReservationSystem.model.Reservation">
+            INSERT INTO tbl_reservation_mst (
+            seat_id,
+            emp_id,
+            start_date,
+            end_date,
+            start_time,
+            end_time
+        )
+        VALUES (
+            #{seat_id},
+            #{emp_id},
+            #{start_date},
+            #{end_date},
+            #{start_time}, 
+            #{end_time}
+        );
+    </select>
+
+
+</mapper>
