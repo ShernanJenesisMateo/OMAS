@@ -19,7 +19,7 @@ export default function LoginPage() {
 					<FontAwesomeIcon icon={faLock} className={LoginStyle.login__icon} />
 					<input type="password" className={LoginStyle.login__input} placeholder="Password" />
 				</div>
-				<Link to="/Area" style={{ textDecoration: "none" }}>
+				<Link to="/area" style={{ textDecoration: "none" }}>
 					<button className={`${LoginStyle.button} ${LoginStyle.login__submit}`} >
 						<span className={LoginStyle.button__text}>Log In Now</span>
 						<FontAwesomeIcon icon={faChevronRight} className={LoginStyle.button__icon} />
