@@ -4,7 +4,7 @@ import './App.css';
 
 
 // pages
-import Login from "./components/Login";
+import Login from "./components/login/Login";
 import Area from "./components/AreaCanvas/Area"
 
 
