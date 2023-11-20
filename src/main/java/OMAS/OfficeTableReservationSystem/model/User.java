@@ -17,11 +17,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User implements UserDetails{
-    private Integer user_id;
-    private String first_name;
-    private String last_name;
+    private String emp_id;
+    private String fname;
+    private String lname;
+    private String mname;
+    private String email;
     private String username;
     private String password;
+    private Long position_id;
+    private Long dept_id;
+    private Long section_id;
+    private String status_code;
+    private String img_src;
+    
     
     private Role role;
     

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import OMAS.OfficeTableReservationSystem.service.AuthService;
 import OMAS.OfficeTableReservationSystem.shared.AuthRequest;
 import OMAS.OfficeTableReservationSystem.shared.AuthResponse;
-
+import OMAS.OfficeTableReservationSystem.shared.RegisterRequest;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -19,6 +19,13 @@ import lombok.RequiredArgsConstructor;
 public class AuthController {
 
     private final AuthService authService;
+
+    @PostMapping("/register")
+    public ResponseEntity<AuthResponse> register(
+        @RequestBody RegisterRequest request
+    ) {
+        return ResponseEntity.ok(authService.register(request));
+    }
     
     @PostMapping("/authenticate")
     public ResponseEntity<AuthResponse> authenticate(
