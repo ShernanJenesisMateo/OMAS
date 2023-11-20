@@ -4,8 +4,8 @@ import './App.css';
 
 
 // pages
-import Login from "./components/Login";
-import Area from "./components/AreaCanvas/Area"
+import Login from "./components/login/Login";
+import Area from "./components/AreaCanvas/Area";
 
 
 function App() {
