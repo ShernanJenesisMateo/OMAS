@@ -5,7 +5,7 @@ import './App.css';
 
 // pages
 import Login from "./components/Login";
-
+import Area from "./components/AreaCanvas/Area"
 
 
 function App() {
@@ -13,6 +13,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" Component={Login} />
+        <Route path="/area" Component={Area} />
+
       </Routes>
     </BrowserRouter>
   );
