@@ -18,7 +18,7 @@ public class SecurityConfig {
 
     private final JwtAuthFilter jwtAuthenticationFilter;
 
-    private  AuthenticationProvider authenticationProvider;
+    private final AuthenticationProvider authenticationProvider;
     
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
@@ -27,8 +27,8 @@ public class SecurityConfig {
             .csrf()
             .disable()
             .authorizeHttpRequests()
-            .requestMatchers("/api/v1/auth/**").permitAll()
-            .requestMatchers("/api/v1/logout").permitAll()
+            .requestMatchers("/auth/**").permitAll()
+            .requestMatchers("/authlogout").permitAll()
             .anyRequest()
             .authenticated()
             .and()
@@ -38,8 +38,8 @@ public class SecurityConfig {
             .authenticationProvider(authenticationProvider)
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
             .logout()
-                .logoutUrl("/api/v1/logout")
-                .logoutSuccessUrl("/api/v1/logout/success")
+                .logoutUrl("/auth/logout")
+                .logoutSuccessUrl("/auth/logout/success")
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID", "JWT-TOKEN");
 
