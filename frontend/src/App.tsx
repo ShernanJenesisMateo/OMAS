@@ -1,13 +1,20 @@
 import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
+import { BrowserRouter, Route, Routes, Navigate, useNavigate } from "react-router-dom";
 import './App.css';
+
+
+// pages
+import Login from "./components/Login";
+
+
 
 function App() {
   return (
-    <div className="App">
-      <h1>hello</h1>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" Component={Login} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
