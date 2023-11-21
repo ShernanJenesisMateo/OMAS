@@ -10,6 +10,7 @@ interface Seat {
 interface Divider {
     positionX: number;
     positionY: number;
+    length: number;
     color: string;
 }
 
@@ -77,7 +78,7 @@ export default function Area(): ReactElement {
     const drawDivider = (context: CanvasRenderingContext2D | null, divider: Divider) => {
         if (context) {
             context.fillStyle = divider.color;
-            context.fillRect(divider.positionX * scale + panOffset.x, divider.positionY * scale + panOffset.y, 10 * scale, 600 * scale);
+            context.fillRect(divider.positionX * scale + panOffset.x, divider.positionY * scale + panOffset.y, 10 * scale, divider.length * scale);
         }
     };
 
@@ -175,10 +176,10 @@ export default function Area(): ReactElement {
 
     const divider: Divider[] = [
         // column 1 
-        { positionX: 210, positionY: 80, color: 'black' },
+        { positionX: 210, positionY: 80, length: 350, color: 'black' },
 
         // column 2 
-        { positionX: 570, positionY: 80, color: 'black' },
+        { positionX: 570, positionY: 80, length: 750, color: 'black' },
     ]
 
     const canvasStyle: React.CSSProperties = {
