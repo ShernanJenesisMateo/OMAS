@@ -7,16 +7,20 @@ interface Seat {
     positionY: number;
     color: string;
 }
+interface Divider {
+    positionX: number;
+    positionY: number;
+    color: string;
+}
+
 
 export default function Area(): ReactElement {
-    // const drawSeat = (context: CanvasRenderingContext2D | null, seat: Seat) => {
-    //     if (context) {
-    //         context.fillStyle = seat.color;
-    //         context.fillRect(seat.positionX, seat.positionY, 100, 100);
-    //     }
+
     const [isPanning, setIsPanning] = useState(false);
     const [panStart, setPanStart] = useState({ x: 0, y: 0 });
     const [panOffset, setPanOffset] = useState({ x: 0, y: 0 });
+
+    const [zoomFactor, setZoomFactor] = useState(1);
 
     const handleMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
         setIsPanning(true);
@@ -43,50 +47,112 @@ export default function Area(): ReactElement {
         }
     };
 
+    const drawDivider = (context: CanvasRenderingContext2D | null, divider: Divider) => {
+        if (context) {
+            context.fillStyle = divider.color;
+            context.fillRect(divider.positionX + panOffset.x, divider.positionY + panOffset.y, 10, 600);
+        }
+    };
 
     const seats: Seat[] = [
-        // COLUMN 1
-        { positionX: 10, positionY: 10, color: 'yellow' },
-        { positionX: 10, positionY: 110, color: 'blue' },
-        { positionX: 10, positionY: 210, color: 'green' },
-        { positionX: 10, positionY: 310, color: 'yellow' },
-        { positionX: 10, positionY: 410, color: 'blue' },
-        { positionX: 10, positionY: 510, color: 'green' },
+        { positionX: 100, positionY: 100, color: '#4000ff' },
+        { positionX: 100, positionY: 200, color: '#ff005a' },
+        { positionX: 100, positionY: 300, color: '#3cff00' },
+        { positionX: 100, positionY: 800, color: '#d8000c' },
+        { positionX: 100, positionY: 1000, color: '#8c00e6' },
+        { positionX: 100, positionY: 1100, color: '#3500c3' },
+        { positionX: 100, positionY: 1200, color: '#00c399' },
+        { positionX: 230, positionY: 100, color: '#00c399' },
+        { positionX: 230, positionY: 200, color: '#00c399' },
+        { positionX: 230, positionY: 300, color: '#ff005a' },
+        { positionX: 460, positionY: 100, color: '#00c399' },
+        { positionX: 460, positionY: 200, color: '#3500c3' },
+        { positionX: 460, positionY: 300, color: '#d8000c' },
+        { positionX: 590, positionY: 100, color: '#3500c3' },
+        { positionX: 590, positionY: 200, color: '#3cff00' },
+        { positionX: 590, positionY: 300, color: '#4000ff' },
+        { positionX: 590, positionY: 400, color: '#ff005a' },
+        { positionX: 590, positionY: 500, color: '#8c00e6' },
+        { positionX: 590, positionY: 600, color: '#8c00e6' },
+        { positionX: 590, positionY: 700, color: '#d8000c' },
+        { positionX: 820, positionY: 100, color: '#ff005a' },
+        { positionX: 820, positionY: 200, color: '#4000ff' },
+        { positionX: 820, positionY: 300, color: '#ff005a' },
+        { positionX: 820, positionY: 400, color: '#ff005a' },
+        { positionX: 820, positionY: 500, color: '#ff005a' },
+        { positionX: 820, positionY: 600, color: '#3cff00' },
+        { positionX: 820, positionY: 700, color: '#8c00e6' },
+        { positionX: 820, positionY: 800, color: '#8c00e6' },
+        { positionX: 950, positionY: 100, color: '#3500c3' },
+        { positionX: 950, positionY: 200, color: '#00c399' },
+        { positionX: 950, positionY: 300, color: '#ff005a' },
+        { positionX: 950, positionY: 400, color: '#8c00e6' },
+        { positionX: 950, positionY: 500, color: '#8c00e6' },
+        { positionX: 950, positionY: 600, color: '#00c399' },
+        { positionX: 950, positionY: 700, color: '#00c399' },
+        { positionX: 950, positionY: 800, color: '#ff005a' },
+        { positionX: 950, positionY: 900, color: '#3500c3' },
+        { positionX: 1180, positionY: 100, color: '#3500c3' },
+        { positionX: 1180, positionY: 200, color: '#00c399' },
+        { positionX: 1180, positionY: 300, color: '#4000ff' },
+        { positionX: 1180, positionY: 400, color: '#3500c3' },
+        { positionX: 1180, positionY: 500, color: '#00c399' },
+        { positionX: 1180, positionY: 600, color: '#4000ff' },
+        { positionX: 1180, positionY: 700, color: '#d8000c' },
+        { positionX: 1180, positionY: 800, color: '#3500c3' },
+        { positionX: 1310, positionY: 100, color: '#00c399' },
+        { positionX: 1310, positionY: 200, color: '#8c00e6' },
+        { positionX: 1310, positionY: 300, color: '#3cff00' },
+        { positionX: 1310, positionY: 400, color: '#00c399' },
+        { positionX: 1310, positionY: 500, color: '#3500c3' },
+        { positionX: 1310, positionY: 600, color: '#4000ff' },
+        { positionX: 1310, positionY: 700, color: '#ff005a' },
+        { positionX: 1310, positionY: 800, color: '#3cff00' },
+        { positionX: 1540, positionY: 100, color: '#8c00e6' },
+        { positionX: 1540, positionY: 200, color: '#4000ff' },
+        { positionX: 1540, positionY: 300, color: '#ff005a' },
+        { positionX: 1540, positionY: 400, color: '#3cff00' },
+        { positionX: 1540, positionY: 500, color: '#3500c3' },
+        { positionX: 1540, positionY: 600, color: '#00c399' },
+        { positionX: 1670, positionY: 100, color: '#ff005a' },
+        { positionX: 1670, positionY: 200, color: '#00c399' },
+        { positionX: 1670, positionY: 300, color: '#3cff00' },
+        { positionX: 1670, positionY: 400, color: '#ff005a' },
+        { positionX: 1670, positionY: 500, color: '#00c399' },
+        { positionX: 1670, positionY: 600, color: '#00c399' },
+        { positionX: 1900, positionY: 100, color: '#00c399' },
+        { positionX: 1900, positionY: 200, color: '#3500c3' },
+        { positionX: 1900, positionY: 300, color: '#4000ff' },
+        { positionX: 1900, positionY: 400, color: '#3cff00' },
+        { positionX: 1900, positionY: 500, color: '#3500c3' },
+        { positionX: 2030, positionY: 100, color: '#8c00e6' },
+        { positionX: 2030, positionY: 200, color: '#3cff00' },
+        { positionX: 2030, positionY: 300, color: '#4000ff' },
+        { positionX: 2030, positionY: 400, color: '#ff005a' },
+        { positionX: 2030, positionY: 500, color: '#00c399' },
+        { positionX: 2260, positionY: 100, color: '#3cff00' },
+        { positionX: 2260, positionY: 200, color: '#ff005a' },
+        { positionX: 2260, positionY: 300, color: '#ff005a' },
+        { positionX: 2260, positionY: 400, color: '#3cff00' },
+        { positionX: 2390, positionY: 100, color: '#ff005a' },
+        { positionX: 2390, positionY: 200, color: '#ff005a' },
+        { positionX: 2390, positionY: 300, color: '#ff005a' },
+        { positionX: 2390, positionY: 400, color: '#4000ff' },
+        { positionX: 2620, positionY: 100, color: '#3500c3' },
+        { positionX: 2620, positionY: 200, color: '#ff005a' }
 
-        // COLUMN 2
-        { positionX: 410, positionY: 10, color: 'yellow' },
-        { positionX: 410, positionY: 110, color: 'blue' },
-        { positionX: 410, positionY: 210, color: 'green' },
-        { positionX: 410, positionY: 310, color: 'yellow' },
-        { positionX: 410, positionY: 410, color: 'blue' },
-        { positionX: 410, positionY: 510, color: 'green' },
 
-        // COLUMN 3
-        { positionX: 810, positionY: 10, color: 'yellow' },
-        { positionX: 810, positionY: 110, color: 'blue' },
-        { positionX: 810, positionY: 210, color: 'green' },
-        { positionX: 810, positionY: 310, color: 'yellow' },
-        { positionX: 810, positionY: 410, color: 'blue' },
-        { positionX: 810, positionY: 510, color: 'green' },
-
-        // COLUMN 4
-        { positionX: 1210, positionY: 10, color: 'yellow' },
-        { positionX: 1210, positionY: 110, color: 'blue' },
-        { positionX: 1210, positionY: 210, color: 'green' },
-        { positionX: 1210, positionY: 310, color: 'yellow' },
-        { positionX: 1210, positionY: 410, color: 'blue' },
-        { positionX: 1210, positionY: 510, color: 'green' },
-
-        // COLUMN 5
-        { positionX: 1610, positionY: 10, color: 'yellow' },
-        { positionX: 1610, positionY: 110, color: 'blue' },
-        { positionX: 1610, positionY: 210, color: 'green' },
-        { positionX: 1610, positionY: 310, color: 'yellow' },
-        { positionX: 1610, positionY: 410, color: 'blue' },
-        { positionX: 1610, positionY: 510, color: 'green' },
 
         // Add more seats with different colors and positions
     ];
+
+    const divider: Divider[] = [
+        // column 1 
+        { positionX: 210, positionY: 80, color: 'black' },
+
+        // column 2 
+        { positionX: 570, positionY: 80, color: 'black' },
+    ]
 
     const canvasStyle: React.CSSProperties = {
         backgroundColor: '#CBCEC7',
@@ -94,8 +160,6 @@ export default function Area(): ReactElement {
         margin: '100px',
         padding: 0,
     };
-
-
 
     return (
         <div style={{ height: '98vh', width: '100vw', border: '2px solid blue', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'auto', padding: '20px', marginTop: '5px' }}>
@@ -109,6 +173,7 @@ export default function Area(): ReactElement {
             <Canvas
                 draw={(context) => {
                     seats.forEach((seat) => drawSeat(context, seat));
+                    divider.forEach((divider) => drawDivider(context, divider));
                 }}
                 width={1600}
                 height={900}
