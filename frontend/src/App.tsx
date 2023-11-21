@@ -5,7 +5,7 @@ import './App.css';
 
 // pages
 import Login from "./components/login/Login";
-import Area from "./components/AreaCanvas/Area";
+import Area from "./components/AreaCanvas/Area"
 
 
 function App() {
