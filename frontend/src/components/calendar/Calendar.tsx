@@ -19,31 +19,41 @@ function Calendar() {
   };
 
 
+  const customButton = {
+    text: '+ Add Appointment',
+    click: handleModalOpen,
+  };
+
+
+  const headerToolbar = {
+    left: 'today,prev,next,title',
+    center: '',
+    right: 'timeGridWeek,dayGridMonth,timeGridDay, customButton',
+  };
+
+
   return (
     <div>
       <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         initialView={"dayGridMonth"}
-        headerToolbar={{
-          start: "today prev,next",
-          center: "title",
-          end: "dayGridMonth,timeGridWeek,timeGridDay",
-        }}
-        height={"90vh"}
+        headerToolbar={headerToolbar}
+        height={'67vh'}
+        handleWindowResize={true}
+        stickyHeaderDates={true}
+        nowIndicator={true}
+        allDaySlot={false}
+        selectable={true}
+        eventTimeFormat={{
+          hour: "2-digit",
+          minute: "2-digit",
+          meridiem: "short"}}
+        slotMinTime="06:00:00"
+        slotMaxTime="19:00:00"
+        customButtons={{ customButton }}
       />
-      <div>
-        <button onClick={handleModalOpen}>Open Modal</button>
-        {isModalOpen && (
-          <div className="modal">
-            <div className="modal-content">
-              <span className="close" onClick={handleModalClose}>
-                &times;
-              </span>
-              <p>Modal content goes here.</p>
-            </div>
-          </div>
-        )}
-      </div>
+
+
     </div>
   );
 }
