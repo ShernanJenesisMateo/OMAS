@@ -6,7 +6,7 @@ import './App.css';
 // pages
 import Login from "./components/login/Login";
 import Area from "./components/AreaCanvas/Area"
-
+import Calendar from './components/calendar/Calendar';
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
       <Routes>
         <Route path="/" Component={Login} />
         <Route path="/area" Component={Area} />
-
+        <Route path="/calendar" Component={Calendar} />
       </Routes>
     </BrowserRouter>
   );
