@@ -1,6 +1,5 @@
 package OMAS.OfficeTableReservationSystem.controller;
 
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import OMAS.OfficeTableReservationSystem.dao.UserDao;
 import OMAS.OfficeTableReservationSystem.model.Reservation;
-import OMAS.OfficeTableReservationSystem.model.User;
+import OMAS.OfficeTableReservationSystem.model.UserOutput;
 import OMAS.OfficeTableReservationSystem.service.ReservationService;
 
 @RestController
@@ -31,13 +30,12 @@ public class ReservationController {
     public ResponseEntity<String> save(@PathVariable Long seat_id, @RequestBody Reservation body) {
         try {
             // Example using Spring Security
-            // Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            // String loggedInUserId = authentication.getName(); // Assuming the username is the user ID
-            // Optional<User> username = userDao.findByUsername(loggedInUserId);
-            // body.setEmp_id(username.    );
-
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            String loggedInUserId = authentication.getName(); // Assuming the username is the user ID
+            UserOutput username = userDao.findUserByUsername(loggedInUserId);
+            
             body.setSeat_id(seat_id);
-            body.setEmp_id("111");
+            body.setEmp_id(username.getEmp_id());
             return reservationService.save(body);
         } catch (Exception e) {
             return ResponseEntity.status(500).body(e.getMessage());
