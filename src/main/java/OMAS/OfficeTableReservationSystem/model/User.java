@@ -1,6 +1,7 @@
 package OMAS.OfficeTableReservationSystem.model;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -31,11 +32,12 @@ public class User implements UserDetails{
     private String img_src;
     
     
-    private Role role;
+    // private Role role;
     
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        // return List.of(new SimpleGrantedAuthority(role.name()));
+        return Collections.emptyList();
     }
 
     @Override

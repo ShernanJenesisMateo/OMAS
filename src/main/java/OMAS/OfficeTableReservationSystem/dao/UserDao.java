@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.apache.ibatis.annotations.Mapper;
 
 import OMAS.OfficeTableReservationSystem.model.PersonalInfoInput;
-import OMAS.OfficeTableReservationSystem.model.Role;
 import OMAS.OfficeTableReservationSystem.model.User;
 import OMAS.OfficeTableReservationSystem.model.UserInput;
 import OMAS.OfficeTableReservationSystem.model.UserOutput;
@@ -22,7 +21,7 @@ public interface UserDao {
 
     void insertUser (UserInput body);
 
-    List<Role> getAllRolesOfUser();
+    // List<Role> getAllRolesOfUser();
 
     UserOutput findUserByUsername (String username);
 }
