@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import OMAS.OfficeTableReservationSystem.dao.UserDao;
 import OMAS.OfficeTableReservationSystem.model.PersonalInfoInput;
-import OMAS.OfficeTableReservationSystem.model.Role;
 import OMAS.OfficeTableReservationSystem.model.User;
 import OMAS.OfficeTableReservationSystem.model.UserInput;
 import OMAS.OfficeTableReservationSystem.service.AuthService;
@@ -46,7 +45,6 @@ public class AuthServiceImpl implements AuthService{
                 .section_id(request.getSection_id())
                 .status_code(request.getStatus_code())
                 .img_src(request.getImg_src())
-                .role(Role.USER)
                 .build();
 
         UserInput userAccount = new UserInput();
