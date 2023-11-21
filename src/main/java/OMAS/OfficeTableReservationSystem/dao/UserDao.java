@@ -9,6 +9,7 @@ import OMAS.OfficeTableReservationSystem.model.PersonalInfoInput;
 import OMAS.OfficeTableReservationSystem.model.Role;
 import OMAS.OfficeTableReservationSystem.model.User;
 import OMAS.OfficeTableReservationSystem.model.UserInput;
+import OMAS.OfficeTableReservationSystem.model.UserOutput;
 
 @Mapper
 public interface UserDao {
@@ -22,4 +23,6 @@ public interface UserDao {
     void insertUser (UserInput body);
 
     List<Role> getAllRolesOfUser();
+
+    UserOutput findUserByUsername (String username);
 }
