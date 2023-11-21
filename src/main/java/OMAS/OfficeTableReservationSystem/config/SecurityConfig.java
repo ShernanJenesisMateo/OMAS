@@ -19,25 +19,41 @@ public class SecurityConfig {
     private final JwtAuthFilter jwtAuthenticationFilter;
 
     private final AuthenticationProvider authenticationProvider;
-    
+
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-            .csrf()
-            .disable()
-            .authorizeHttpRequests()
-            .requestMatchers("/auth/**").permitAll()
-            .requestMatchers("/authlogout").permitAll()
-            .anyRequest()
-            .authenticated()
-            .and()
-            .sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and()
-            .authenticationProvider(authenticationProvider)
-            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-            .logout()
+                // .csrf()
+                // .disable()
+                // .authorizeHttpRequests()
+                // .requestMatchers("/auth/**").permitAll()
+                // .requestMatchers("/authlogout").permitAll()
+                // .anyRequest()
+                // .authenticated()
+                // .and()
+                // .sessionManagement()
+                // .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                // .and()
+                // .authenticationProvider(authenticationProvider)
+                // .addFilterBefore(jwtAuthenticationFilter,
+                // UsernamePasswordAuthenticationFilter.class)
+                // .logout()
+                // .logoutUrl("/auth/logout")
+                // .logoutSuccessUrl("/auth/logout/success")
+                // .invalidateHttpSession(true)
+                // .deleteCookies("JSESSIONID", "JWT-TOKEN");
+                .csrf()
+                .disable()
+                .authorizeHttpRequests()
+                .anyRequest().permitAll() // Allow all requests without authentication
+                .and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .authenticationProvider(authenticationProvider)
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .logout()
                 .logoutUrl("/auth/logout")
                 .logoutSuccessUrl("/auth/logout/success")
                 .invalidateHttpSession(true)
@@ -45,5 +61,5 @@ public class SecurityConfig {
 
         return http.build();
     }
-    
+
 }
