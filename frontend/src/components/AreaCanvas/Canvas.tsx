@@ -6,10 +6,12 @@ interface CanvasProps {
     width: number;
     height: number;
     canvasStyle?: React.CSSProperties;
+
+    // for panning
     onMouseDown: (e: React.MouseEvent<HTMLCanvasElement>) => void;
     onMouseMove: (e: React.MouseEvent<HTMLCanvasElement>) => void;
     onMouseUp: () => void;
-    // Add other props here if needed
+
 }
 
 const Canvas: FC<CanvasProps> = ({ draw, canvasStyle, onMouseDown, onMouseMove, onMouseUp, ...rest }) => {
