@@ -8,10 +8,24 @@
         <!-- Login -->
         <select id="findByUsername" resultType="OMAS.OfficeTableReservationSystem.model.User">
             SELECT emp_id,
-                username,
-                password
-            FROM tbl_user
+                   username,
+                   password
+             FROM tbl_user
             WHERE username = #{username}
+        </select>
+
+        <select id="getAllRolesOfUser" resultType="OMAS.OfficeTableReservationSystem.model.Role">
+            SELECT title
+            FROM tbl_role_mst;
+
+                                                                <!-- SELECT user_id,
+                first_name,
+                last_name,
+                username,
+                password,
+                role
+                FROM tbl_user_mst
+                WHERE username = #{username} -->
         </select>
 
         <!-- Add Data -->

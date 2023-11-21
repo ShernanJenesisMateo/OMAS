@@ -24,25 +24,27 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-                // .csrf()
-                // .disable()
-                // .authorizeHttpRequests()
-                // .requestMatchers("/auth/**").permitAll()
-                // .requestMatchers("/authlogout").permitAll()
-                // .anyRequest()
-                // .authenticated()
-                // .and()
-                // .sessionManagement()
-                // .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                // .and()
-                // .authenticationProvider(authenticationProvider)
-                // .addFilterBefore(jwtAuthenticationFilter,
-                // UsernamePasswordAuthenticationFilter.class)
-                // .logout()
-                // .logoutUrl("/auth/logout")
-                // .logoutSuccessUrl("/auth/logout/success")
-                // .invalidateHttpSession(true)
-                // .deleteCookies("JSESSIONID", "JWT-TOKEN");
+
+            // .csrf()
+            // .disable()
+            // .authorizeHttpRequests()
+            // .requestMatchers("/api/v1/auth/**").permitAll()
+            // .requestMatchers("/api/v1/logout").permitAll()
+            // .requestMatchers("/**").permitAll()
+            // .anyRequest()
+            // .authenticated()
+            // .and()
+            // .sessionManagement()
+            // .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            // .and()
+            // .authenticationProvider(authenticationProvider)
+            // .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+            // .logout()
+            //     .logoutUrl("/api/v1/logout")
+            //     .logoutSuccessUrl("/api/v1/logout/success")
+            //     .invalidateHttpSession(true)
+            //     .deleteCookies("JSESSIONID", "JWT-TOKEN");
+
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
@@ -54,25 +56,11 @@ public class SecurityConfig {
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .logout()
-            .csrf()
-            .disable()
-            .authorizeHttpRequests()
-            .requestMatchers("/auth/**").permitAll()
-            .requestMatchers("/authlogout").permitAll()
-            .requestMatchers("/**").permitAll()
-            .anyRequest()
-            .authenticated()
-            .and()
-            .sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and()
-            .authenticationProvider(authenticationProvider)
-            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-            .logout()
                 .logoutUrl("/auth/logout")
                 .logoutSuccessUrl("/auth/logout/success")
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID", "JWT-TOKEN");
+
 
         return http.build();
     }
