@@ -20,7 +20,7 @@ export default function Area(): ReactElement {
     const [panStart, setPanStart] = useState({ x: 0, y: 0 });
     const [panOffset, setPanOffset] = useState({ x: 0, y: 0 });
 
-    const [zoomFactor, setZoomFactor] = useState(1);
+    const [scale, setScale] = useState(1); // State to track scale factor
 
     const handleMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
         setIsPanning(true);
@@ -40,17 +40,27 @@ export default function Area(): ReactElement {
         setIsPanning(false);
     };
 
+    // Function to handle zoom in
+    const zoomIn = () => {
+        setScale(scale * 1.2); // Increase scale by 20%
+    };
+
+    // Function to handle zoom out
+    const zoomOut = () => {
+        setScale(scale / 1.2); // Decrease scale by 20%
+    };
+
     const drawSeat = (context: CanvasRenderingContext2D | null, seat: Seat) => {
         if (context) {
             context.fillStyle = seat.color;
-            context.fillRect(seat.positionX + panOffset.x, seat.positionY + panOffset.y, 100, 100);
+            context.fillRect(seat.positionX * scale + panOffset.x, seat.positionY * scale + panOffset.y, 100 * scale, 100 * scale);
         }
     };
 
     const drawDivider = (context: CanvasRenderingContext2D | null, divider: Divider) => {
         if (context) {
             context.fillStyle = divider.color;
-            context.fillRect(divider.positionX + panOffset.x, divider.positionY + panOffset.y, 10, 600);
+            context.fillRect(divider.positionX * scale + panOffset.x, divider.positionY * scale + panOffset.y, 10 * scale, 600 * scale);
         }
     };
 
@@ -168,8 +178,10 @@ export default function Area(): ReactElement {
                     Go to calendar
                 </button>
             </Link>
-
-
+            <div>
+                <button onClick={zoomIn}>Zoom In</button>
+                <button onClick={zoomOut}>Zoom Out</button>
+            </div>
             <Canvas
                 draw={(context) => {
                     seats.forEach((seat) => drawSeat(context, seat));
