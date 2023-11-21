@@ -14,20 +14,6 @@
             WHERE username = #{username}
         </select>
 
-        <select id="getAllRolesOfUser" resultType="OMAS.OfficeTableReservationSystem.model.Role">
-            SELECT title
-            FROM tbl_role_mst;
-
-                                                                <!-- SELECT user_id,
-                first_name,
-                last_name,
-                username,
-                password,
-                role
-                FROM tbl_user_mst
-                WHERE username = #{username} -->
-        </select>
-
         <!-- Add Data -->
         <insert id="addPersonalInfo" parameterType="OMAS.OfficeTableReservationSystem.model.PersonalInfoInput">
                 INSERT INTO tbl_personal_info(
