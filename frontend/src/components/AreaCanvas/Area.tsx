@@ -16,11 +16,22 @@ interface Divider {
 
 export default function Area(): ReactElement {
 
+    // for panning
     const [isPanning, setIsPanning] = useState(false);
     const [panStart, setPanStart] = useState({ x: 0, y: 0 });
     const [panOffset, setPanOffset] = useState({ x: 0, y: 0 });
 
-    const [scale, setScale] = useState(1); // State to track scale factor
+    // for zoom
+    const [scale, setScale] = useState(1); 
+
+    // for limiting the user panning
+    const canvasWidth = 3800; 
+    const canvasHeight = 1900;
+    const minX = -(canvasWidth * scale) + window.innerWidth;
+    const minY = -(canvasHeight * scale) + window.innerHeight;
+    const maxX = 0;
+    const maxY = 0;
+
 
     const handleMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
         setIsPanning(true);
@@ -31,7 +42,15 @@ export default function Area(): ReactElement {
         if (isPanning) {
             const offsetX = e.clientX - panStart.x;
             const offsetY = e.clientY - panStart.y;
-            setPanOffset({ x: panOffset.x + offsetX, y: panOffset.y + offsetY });
+
+            let newPanOffsetX = panOffset.x + offsetX;
+            let newPanOffsetY = panOffset.y + offsetY;
+
+            // Limit panning within boundaries
+            newPanOffsetX = Math.min(Math.max(newPanOffsetX, minX), maxX);
+            newPanOffsetY = Math.min(Math.max(newPanOffsetY, minY), maxY);
+
+            setPanOffset({ x: newPanOffsetX, y: newPanOffsetY });
             setPanStart({ x: e.clientX, y: e.clientY });
         }
     };
@@ -40,12 +59,10 @@ export default function Area(): ReactElement {
         setIsPanning(false);
     };
 
-    // Function to handle zoom in
     const zoomIn = () => {
         setScale(scale * 1.2); // Increase scale by 20%
     };
 
-    // Function to handle zoom out
     const zoomOut = () => {
         setScale(scale / 1.2); // Decrease scale by 20%
     };

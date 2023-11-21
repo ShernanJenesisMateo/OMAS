@@ -12,8 +12,6 @@ interface CanvasProps {
     onMouseMove: (e: React.MouseEvent<HTMLCanvasElement>) => void;
     onMouseUp: () => void;
 
-
-    // Add other props here if needed
 }
 
 const Canvas: FC<CanvasProps> = ({ draw, canvasStyle, onMouseDown, onMouseMove, onMouseUp, ...rest }) => {
