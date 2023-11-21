@@ -1,5 +1,6 @@
 import Canvas from "./Canvas";
 import React, { ReactElement } from 'react';
+import { Link } from "react-router-dom";
 
 interface Seat {
     positionX: number;
@@ -22,13 +23,24 @@ export default function Area(): ReactElement {
         // Add more seats with different colors and positions
     ];
 
+    const canvasStyle: React.CSSProperties = { backgroundColor: 'red' };
+
     return (
-        <Canvas
-            draw={(context) => {
-                seats.forEach((seat) => drawSeat(context, seat));
-            }}
-            width={800}
-            height={600}
-        />
+        <div style={{height: "95vh", width: "95vw", border:"2px solid blue"}}>
+            <Canvas
+                draw={(context) => {
+                    seats.forEach((seat) => drawSeat(context, seat));
+                }}
+                width={800}
+                height={600}
+                canvasStyle={canvasStyle}
+            />
+				<Link to="/calendar" style={{ textDecoration: "none" }}>
+					<button style={{height: "50px", width:"100px"}}>
+                        Go to calendar
+					</button>		
+				</Link>	
+        </div>
+
     );
 }
