@@ -1,7 +1,6 @@
 package OMAS.OfficeTableReservationSystem.model;
 
-import java.sql.Date;
-import java.sql.Time;
+import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,8 +15,6 @@ public class Reservation {
     private Long reservation_id;
     private Long seat_id;
     private String emp_id;
-    private Date start_date;
-    private Date end_date;
-    private Time start_time;
-    private Time end_time;
+    private Timestamp start_date;
+    private Timestamp end_date;
 }
