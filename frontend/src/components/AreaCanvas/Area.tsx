@@ -187,21 +187,18 @@ export default function Area(): ReactElement {
 
     const canvasStyle: React.CSSProperties = {
         backgroundColor: '#CBCEC7',
-        overflow: 'auto',
-        margin: '100px',
-        padding: 0,
     };
 
 
     
 
     return (
-        <div style={{ height: '98vh', width: '100vw', border: '2px solid blue', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'auto', padding: '20px', marginTop: '5px' }}>
-            <Link to='/calendar' style={{ textDecoration: 'none' }}>
+        <div style={{ height: '100%', width: '100%' }}>
+            {/* <Link to='/calendar' style={{ textDecoration: 'none' }}>
                 <button style={{ height: '50px', width: '100px' }}>
                     Go to calendar
                 </button>
-            </Link>
+            </Link> */}
             <div>
                 <button onClick={zoomIn}>Zoom In</button>
                 <button onClick={zoomOut}>Zoom Out</button>
@@ -211,8 +208,8 @@ export default function Area(): ReactElement {
                     drawSeats(context, seats);
                     divider.forEach((divider) => drawDivider(context, divider));
                 }}
-                width={1600}
-                height={900}
+                width={2400}
+                height={1200}
                 canvasStyle={canvasStyle}
                 onMouseDown={handleMouseDown}
                 onMouseMove={handleMouseMove}
