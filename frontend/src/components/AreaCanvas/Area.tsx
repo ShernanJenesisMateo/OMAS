@@ -1,5 +1,5 @@
 import Canvas from './Canvas';
-import React, { ReactElement, useState } from 'react';
+import React, { ReactElement, useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 interface Seat {
@@ -17,6 +17,8 @@ interface Divider {
 
 
 export default function Area(): ReactElement {
+
+    const canvasRef = useRef<HTMLCanvasElement>(null);
 
     // for panning
     const [isPanning, setIsPanning] = useState(false);
@@ -69,10 +71,12 @@ export default function Area(): ReactElement {
         setScale(scale / 1.2); // Decrease scale by 20%
     };
 
-    const drawSeat = (context: CanvasRenderingContext2D | null, seat: Seat) => {
+    const drawSeats = (context: CanvasRenderingContext2D | null, seats: Seat[]) => {
         if (context) {
-            context.fillStyle = seat.color;
-            context.fillRect(seat.positionX * scale + panOffset.x, seat.positionY * scale + panOffset.y, 100 * scale, 100 * scale);
+            seats.forEach((seat) => {
+                context.fillStyle = seat.color;
+                context.fillRect(seat.positionX * scale + panOffset.x, seat.positionY * scale + panOffset.y, 100 * scale, 100 * scale);
+            });
         }
     };
 
@@ -188,6 +192,9 @@ export default function Area(): ReactElement {
         padding: 0,
     };
 
+
+    
+
     return (
         <div style={{ height: '98vh', width: '100vw', border: '2px solid blue', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'auto', padding: '20px', marginTop: '5px' }}>
             <Link to='/calendar' style={{ textDecoration: 'none' }}>
@@ -201,7 +208,7 @@ export default function Area(): ReactElement {
             </div>
             <Canvas
                 draw={(context) => {
-                    seats.forEach((seat) => drawSeat(context, seat));
+                    drawSeats(context, seats);
                     divider.forEach((divider) => drawDivider(context, divider));
                 }}
                 width={1600}
