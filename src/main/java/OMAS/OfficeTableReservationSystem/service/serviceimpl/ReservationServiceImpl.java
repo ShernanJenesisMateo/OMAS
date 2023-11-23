@@ -1,5 +1,7 @@
 package OMAS.OfficeTableReservationSystem.service.serviceimpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,11 @@ public class ReservationServiceImpl implements ReservationService{
     public ResponseEntity<String> save(Reservation body) {
         reservationDao.save(body);
         return ResponseEntity.ok("Seat reserved");
+    }
+
+    @Override
+    public ResponseEntity<List<Reservation>> reservationsPerSeat(Long seat_id) {
+        return ResponseEntity.ok(reservationDao.reservationsPerSeat(seat_id));
     }
     
 }
