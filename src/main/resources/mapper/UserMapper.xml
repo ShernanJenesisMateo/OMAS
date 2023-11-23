@@ -42,7 +42,7 @@
             position_id, 
             dept_id, 
             section_id, 
-                                                            <!-- role_id, -->
+            <!-- role_id, -->
             status_code, 
             img_src, 
             reg_id
@@ -54,7 +54,7 @@
             #{position_id}, 
             #{dept_id}, 
             #{section_id},
-                                                            <!-- #{role_id},  -->
+            <!-- #{role_id},  -->
             #{status_code}, 
             #{img_src}, 
             1
@@ -63,7 +63,6 @@
 
 
     <!-- findUserByUsername --> 
-
     <select id="findUserByUsername" resultType="OMAS.OfficeTableReservationSystem.model.UserOutput">
         SELECT users.emp_id,
                users.username,
@@ -91,4 +90,42 @@
     INNER JOIN tbl_status_mst AS user_status ON users.status_code = user_status.status_code
          WHERE users.del_flag = 0 AND users.username = #{username};
     </select>
+
+    <!-- getUserById (fetch user projects with ongoing status) -->
+    <select id="getUserById" parameterType="java.lang.String" resultType="OMAS.OfficeTableReservationSystem.model.UserInfoOutput">
+        SELECT users.emp_id,
+               users.username,
+               users.status_code,
+               users.img_src,
+               users.password,
+               info_master.fname,
+               info_master.mname,
+               info_master.lname,
+               position_master.position_name,
+               position_master.position_id,
+               info_master.email,
+               section_master.section_id,
+               section_master.section_name,
+               department_master.dept_id,
+               department_master.dept_name,
+               user_status.status_name,
+               users.del_flag,
+               projects.proj_name,
+               color.color_code
+          FROM tbl_personal_info AS info_master
+    INNER JOIN tbl_user AS users ON users.emp_id = info_master.emp_id
+    INNER JOIN tbl_position_mst AS position_master ON users.position_id = position_master.position_id
+    INNER JOIN tbl_section_mst AS section_master ON users.section_id = section_master.section_id
+    INNER JOIN tbl_department_mst AS department_master ON users.dept_id = department_master.dept_id
+    INNER JOIN tbl_status_mst AS user_status ON users.status_code = user_status.status_code
+     LEFT JOIN tbl_user_project AS tup ON tup.emp_id = info_master.emp_id
+     LEFT JOIN tbl_proj_manager AS tpm ON tpm.emp_id = info_master.emp_id
+     LEFT JOIN tbl_project_mst AS projects ON (projects.proj_id = tup.proj_id OR projects.proj_id = tpm.proj_id)
+     LEFT JOIN tbl_proj_info AS tpi ON tpi.proj_id = projects.proj_id
+     LEFT JOIN tbl_proj_color AS tpc ON tpc.proj_id = projects.proj_id
+     LEFT JOIN tbl_color_mst AS color ON color.color_id = tpc.color_id
+         WHERE users.del_flag = 0 AND users.emp_id = #{id} AND tpi.proj_status_id = 2
+      GROUP BY users.emp_id, users.username, users.status_code, users.img_src, users.password, info_master.fname, info_master.mname, info_master.lname, position_master.position_name, position_master.position_id, info_master.email, section_master.section_id, section_master.section_name, department_master.dept_id, department_master.dept_name, user_status.status_name, users.del_flag, projects.proj_name, color.color_code
+         LIMIT 1;
+</select>
 </mapper>

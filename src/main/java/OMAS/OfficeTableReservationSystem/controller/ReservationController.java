@@ -1,8 +1,11 @@
 package OMAS.OfficeTableReservationSystem.controller;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 // import org.springframework.security.core.Authentication;
 // import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +20,7 @@ import OMAS.OfficeTableReservationSystem.model.Reservation;
 import OMAS.OfficeTableReservationSystem.service.ReservationService;
 
 @RestController
-@RequestMapping("/reserve/")
+@RequestMapping("/reserve")
 public class ReservationController {
     
     @Autowired
@@ -26,7 +29,7 @@ public class ReservationController {
     @Autowired
     public UserDao userDao;
 
-    @PostMapping("save/{seat_id}")
+    @PostMapping("/save/{seat_id}")
     public ResponseEntity<String> save(@PathVariable Long seat_id, @RequestBody Reservation body) {
         try {
             // // Example using Spring Security
@@ -40,5 +43,10 @@ public class ReservationController {
         } catch (Exception e) {
             return ResponseEntity.status(500).body(e.getMessage());
         }
+    }
+
+    @GetMapping("/{seat_id}")
+    public ResponseEntity<List<Reservation>> reservationPerSeat(@PathVariable Long seat_id) {
+        return reservationService.reservationsPerSeat(seat_id);
     }
 }

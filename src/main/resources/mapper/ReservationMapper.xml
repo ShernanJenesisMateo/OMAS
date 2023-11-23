@@ -22,12 +22,13 @@
     </insert>
 
     <select id="reservationsPerSeat" parameterType="java.lang.Long" resultType="OMAS.OfficeTableReservationSystem.model.Reservation">
-            SELECT reservations.seat_id,
+            SELECT reservations.reservation_id,
+                   reservations.seat_id,
                    reservations.emp_id,
                    reservations.start_date,
                    reservations.end_date
               FROM tbl_reservation_mst AS reservations
-        INNER JOIN tbl_seat_mst AS seats
+        INNER JOIN tbl_seat AS seats
                 ON seats.seat_id = reservations.seat_id
              WHERE seats.seat_id = #{seat_id};
     </select>
